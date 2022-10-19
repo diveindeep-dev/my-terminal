@@ -1,19 +1,48 @@
-import React, { ChangeEvent, RefObject } from 'react';
+import React, {
+  ChangeEvent,
+  RefObject,
+  KeyboardEvent,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react';
+import shell from '../utils/shell';
+import { History } from '../config/type';
 
 interface InputProps {
   inputRef: RefObject<HTMLInputElement>;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  setHistory: Dispatch<SetStateAction<History[]>>;
 }
 
-const Input = ({ inputRef, handleChange, value }: InputProps) => {
+const Input = ({ inputRef, setHistory }: InputProps) => {
+  const [command, setCommand] = useState<string>('');
+
+  const onSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' || e.code === 'Enter') {
+      e.preventDefault();
+
+      const output: string = shell(command);
+      setHistory((prev: History[]) => [
+        ...prev,
+        { id: prev.length + 1, command: command, result: output },
+      ]);
+
+      setCommand('');
+    }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCommand(e.target.value);
+  };
+
   return (
     <input
-      className=""
+      className="focus:outline-none"
       type="text"
       ref={inputRef}
       onChange={handleChange}
-      value={value}
+      onKeyDown={onSubmit}
+      value={command}
     />
   );
 };
