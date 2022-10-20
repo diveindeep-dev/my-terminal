@@ -37,7 +37,7 @@ const Input = ({ inputRef, setHistory }: InputProps) => {
 
   return (
     <input
-      className="focus:outline-none"
+      className="ml-4 w-full focus:outline-none bg-transparent"
       type="text"
       ref={inputRef}
       onChange={handleChange}

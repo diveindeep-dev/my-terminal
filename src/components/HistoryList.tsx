@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Prompt from './Prompt';
 import { History } from '../config/type';
 
 interface HistoryListProp {
@@ -10,7 +11,9 @@ const HistoryList = ({ history }: HistoryListProp) => {
     <div>
       {history.map((item: History, i: number) => (
         <Fragment key={i}>
-          <div>{item.command}</div>
+          <Prompt>
+            <div className="ml-4">{item.command}</div>
+          </Prompt>
           <div className="whitespace-pre-wrap">{item.result}</div>
         </Fragment>
       ))}
