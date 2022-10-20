@@ -21,11 +21,23 @@ const Input = ({ inputRef, setHistory }: InputProps) => {
     if (e.key === 'Enter' || e.code === 'Enter') {
       e.preventDefault();
 
+      if (command === '') {
+        return setHistory((prev: History[]) => [
+          ...prev,
+          { id: prev.length + 1, command: '', result: '' },
+        ]);
+      }
+
       const output: string = shell(command);
-      setHistory((prev: History[]) => [
-        ...prev,
-        { id: prev.length + 1, command: command, result: output },
-      ]);
+
+      if (output === 'clear') {
+        setHistory([]);
+      } else {
+        setHistory((prev: History[]) => [
+          ...prev,
+          { id: prev.length + 1, command: command, result: output },
+        ]);
+      }
 
       setCommand('');
     }
