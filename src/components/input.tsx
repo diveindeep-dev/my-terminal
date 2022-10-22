@@ -12,10 +12,16 @@ import { History } from '../config/type';
 interface InputProps {
   inputRef: RefObject<HTMLInputElement>;
   setHistory: Dispatch<SetStateAction<History[]>>;
+  history: History[];
 }
 
-const Input = ({ inputRef, setHistory }: InputProps) => {
+const Input = ({ inputRef, setHistory, history }: InputProps) => {
   const [command, setCommand] = useState<string>('');
+  const [indexFromLast, setIndexFromLast] = useState<number>(0);
+
+  const typedCommand: string[] = history
+    .filter((item) => item.command.length > 0)
+    .map((item) => item.command);
 
   const onSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' || e.code === 'Enter') {
@@ -39,7 +45,33 @@ const Input = ({ inputRef, setHistory }: InputProps) => {
         ]);
       }
 
+      setIndexFromLast(0);
       setCommand('');
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!typedCommand.length) return;
+
+      const newIndex = indexFromLast + 1;
+      if (newIndex <= typedCommand.length) {
+        setIndexFromLast(newIndex);
+        setCommand(typedCommand[typedCommand.length - newIndex]);
+      }
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!typedCommand.length) return;
+
+      const newIndex = indexFromLast - 1;
+      if (newIndex > 0) {
+        setIndexFromLast(newIndex);
+        setCommand(typedCommand[typedCommand.length - newIndex]);
+      } else {
+        setIndexFromLast(0);
+        setCommand('');
+      }
     }
   };
 

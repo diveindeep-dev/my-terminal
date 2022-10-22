@@ -25,7 +25,11 @@ const Home: NextPage = () => {
       <div className="px-5 py-3 min-h-screen text-sm text-white bg-gray-800">
         <HistoryList history={history} />
         <Prompt>
-          <Input inputRef={inputRef} setHistory={setHistory} />
+          <Input
+            inputRef={inputRef}
+            setHistory={setHistory}
+            history={history}
+          />
         </Prompt>
       </div>
     </div>
