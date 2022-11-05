@@ -1,13 +1,26 @@
 import type { NextPage } from 'next';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import HistoryList from '../components/HistoryList';
 import Prompt from '../components/Prompt';
 import Input from '../components/input';
 import { History } from '../config/type';
+import shell from '../utils/shell';
 
 const Home: NextPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [history, setHistory] = useState<History[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setHistory([]);
+    setHistory([{ id: 0, command: '', result: shell('start') }]);
+  }, []);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView(false);
+    }
+  }, [history]);
 
   const onClickAnywhere = () => {
     inputRef.current?.focus();
@@ -22,7 +35,10 @@ const Home: NextPage = () => {
           <div className="px-1 text-2xl text-green-400">●</div>
         </div>
       </div>
-      <div className="px-5 py-3 min-h-screen text-sm text-white bg-gray-800">
+      <div
+        className="px-5 py-3 min-h-screen text-sm text-white bg-gray-800"
+        ref={scrollRef}
+      >
         <HistoryList history={history} />
         <Prompt>
           <Input
