@@ -14,7 +14,10 @@ const HistoryList = ({ history }: HistoryListProp) => {
           <Prompt>
             <div className="ml-4">{item.command}</div>
           </Prompt>
-          <div className="whitespace-pre-wrap">{item.result}</div>
+          <div
+            className="whitespace-pre-wrap"
+            dangerouslySetInnerHTML={{ __html: item.result }}
+          />
         </Fragment>
       ))}
     </div>
