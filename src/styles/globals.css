@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Hack';
+  src: url(../../public/assets/font/Hack-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url(../../public/assets/font/NanumSquareNeo-bRg.ttf);
+}
+
+* {
+  font-family: 'Hack', 'NanumSquareNeo', monospace;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.arrow {
+  @apply relative pl-4 pr-3;
+}
+
+.arrow::after {
+  content: '';
+  @apply absolute -right-5 z-10 border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent border-l-[10px] border-r-[10px] border-r-transparent;
+}
