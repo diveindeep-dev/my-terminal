@@ -38,6 +38,9 @@ const Input = ({ inputRef, setHistory, history }: InputProps) => {
 
       if (output === 'clear') {
         setHistory([]);
+      } else if (output === 'restart') {
+        setHistory([]);
+        setHistory([{ id: 0, command: '', result: shell('start') }]);
       } else {
         setHistory((prev: History[]) => [
           ...prev,

@@ -1,4 +1,4 @@
-import * as commands from './commands';
+import * as commands from './command';
 
 const allCommands: { [key in string]: any } = commands;
 
