@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 
   return (
     <div onClick={onClickAnywhere} className="min-w-[800px]">
-      <div className="h-9 px-1 bg-gray-100">
+      <div className="fixed top-0 w-full h-9 px-1 bg-gray-100 z-50">
         <div className="flex items-center justify-items-center">
           <div className="px-1 text-2xl text-red-400">●</div>
           <div className="px-1 text-2xl text-yellow-400">●</div>
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div
-        className="px-5 py-3 min-h-screen text-sm text-white bg-gray-800"
+        className="px-5 pt-16 pb-4 min-h-screen text-sm text-white bg-gray-800"
         ref={scrollRef}
       >
         <HistoryList history={history} />
