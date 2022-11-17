@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import config from '../config/index.json';
+import config from '../config';
 
 interface PromptProps {
   children: ReactNode;
